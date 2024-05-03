@@ -6,7 +6,7 @@ class time:
     self.now = datetime.datetime.now()
     # 西暦のみを取得
     self.year = self.now.year
-    self.formatted_now = self.now.strftime()
+    self.formatted_now = self.now.strftime("%Y-%m-%d %H:%M:%S")
     # 元号定義
     self.era_definitions = [
     {"name": "令和", "start_year": 2019},
@@ -16,9 +16,14 @@ class time:
     {"name": "明治", "start_year": 1868}
 ]
     
-  def convert_to_japanese_era(self,year):
+  def convert_to_japanese_era(self):
     for era in self.era_definitions:
-        if year >= era["start_year"]:
-            japanese_year = year - era["start_year"] + 1
+        if self.year >= era["start_year"]:
+            japanese_year = self.year - era["start_year"] + 1
             return f"{era['name']} {japanese_year}年"
     return "和暦がありません"
+  
+# モジュールが正常に動作するかのテスト
+convert = time()
+print(convert.formatted_now)
+print(convert.convert_to_japanese_era())
